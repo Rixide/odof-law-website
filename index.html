@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNS-ODOF | Système National de Sélection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-start: #FFB84D;
+            --primary-mid: #FF9E64;
+            --primary-end: #FF6B6B;
+            --accent-pink: #FF4757;
+            --accent-magenta: #E84393;
+            --dark: #1A1A2E;
+            --light: #F5F5F5;
+            --white: #FFFFFF;
+            --text-primary: #2C3E50;
+            --text-secondary: #666666;
+            --border-light: #E8E8E8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: transparent;
+            padding: 1.5rem 5%;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFB84D, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        nav.scrolled .logo {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #FFB84D, #FF6B6B);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled .menu-toggle span {
+            background: var(--text-primary);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            background:linear-gradient(135deg, #FFE5B4 0%, #FFD9E8 50%, #FFD4E8 100%) ;/*;url("Image_1.jpg")*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 107, 107, 0.1), transparent);
+            border-radius: 50%;
+            top: 10%;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 90%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .hero-left h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-left h1 span {
+            background: linear-gradient(135deg, #FFB84D, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FFB84D, #FF6B6B);
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
+            border: 2px solid transparent;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-right {
+            position: relative;
+            height: 500px;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .hero-circle {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #E84393, #FF6B6B, #FFB84D);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(232, 67, 147, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .hero-circle svg {
+            width: 60%;
+            height: 60%;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .hero-gear {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-gear:nth-child(1) {
+            top: -20px;
+            left: -30px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-gear:nth-child(2) {
+            top: 50%;
+            right: -40px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .hero-gear:nth-child(3) {
+            bottom: -30px;
+            left: 10%;
+            animation: float 4.5s ease-in-out infinite;
+        }
+
+        .hero-gear img {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            padding: 6rem 5%;
+            background: var(--white);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .about-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            group: "gallery";
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: 1 / -1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(232, 67, 147, 0.2), rgba(255, 107, 107, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* DOSSIERS SECTION */
+        .dossiers {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, rgba(255, 184, 77, 0.05), rgba(255, 107, 107, 0.05));
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dossiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .dossier-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dossier-card:hover {
+            transform: translateY(-8px);
+            border-color: #FFB84D;
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.2);
+        }
+
+        .dossier-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FFB84D, #FF6B6B);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dossier-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .dossier-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            color: var(--text-primary);
+        }
+
+        .modal-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .modal-content li {
+            color: var(--text-secondary);
+            padding: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .modal-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+
+        /* FORM SECTION */
+        .form-section {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #FFE5B4 0%, #FFD9E8 100%);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 3rem auto;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #FFB84D, #FF6B6B);
+            transition: width 0.3s ease;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFB84D;
+            box-shadow: 0 0 0 3px rgba(255, 184, 77, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.8rem;
+            cursor: pointer;
+            accent-color: #FFB84D;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn-prev, .btn-next, .btn-submit {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-prev {
+            background: var(--light);
+            color: var(--text-primary);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-prev:hover {
+            background: var(--border-light);
+        }
+
+        .btn-next, .btn-submit {
+            background: linear-gradient(135deg, #FFB84D, #FF6B6B);
+            color: var(--white);
+        }
+
+        .btn-next:hover, .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-prev:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 4rem 5%;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ANIMATIONS */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 20px 60px rgba(232, 67, 147, 0.3);
+            }
+            50% {
+                box-shadow: 0 20px 80px rgba(232, 67, 147, 0.5);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-right {
+                height: 300px;
+            }
+
+            .hero-circle {
+                width: 250px;
+                height: 250px;
+            }
+
+            .hero-gear {
+                width: 80px;
+                height: 80px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: 1;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .dossiers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            nav.scrolled .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .hero-left h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .form-buttons {
+                gap: 0.5rem;
+            }
+
+            .btn-prev, .btn-next {
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">ODOF</div>
+            <ul class="nav-links">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#dossiers">Dossiers</a></li>
+                <li><a href="#form">Inscription</a></li>
+            </ul>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-left">
+                <h1>Bienvenue sur le <span>SNS-ODOF</span></h1>
+                <p>Le programme One District One Factory (ODOF) est une initiative stratégique du Gouvernement de Madagascar visant à promouvoir l'industrialisation locale à travers l'implantation d'au moins une unité de production dans chaque district du pays.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="document.getElementById('form').scrollIntoView()">Candidater maintenant</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('about').scrollIntoView()">En savoir plus</button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-circle">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <text x="50" y="65" font-size="80" font-weight="bold" fill="white" text-anchor="middle" font-family="Poppins">ODOF</text>
+                    </svg>
+                </div>
+                <div class="hero-gear">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF9E64, #FF6B6B); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">🏭</div>
+                </div>
+                <div class="hero-gear">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FFB84D, #FF9E64); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">⚙️</div>
+                </div>
+                <div class="hero-gear">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #E84393, #FF6B6B); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">📊</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <h2>À propos du <span style="color: #FF6B6B;">SNS-ODOF</span></h2>
+            <p>Un système moderne et transparent pour le recrutement des gestionnaires ODOF</p>
+        </div>
+
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Notre mission</h3>
+                <p>Le Système National de Sélection ODOF (SNS-ODOF) est une plateforme numérique conçue pour accompagner le processus de recrutement et de sélection des Gestionnaires ODOF dans le cadre du programme One District One Factory (ODOF) à Madagascar.</p>
+                <p>Cette plateforme met à la disposition des candidats toutes les informations relatives aux appels à candidature, aux critères d'éligibilité ainsi qu'aux pièces constitutives du dossier de candidature.</p>
+                <p>Le SNS-ODOF a pour mission de moderniser la gestion des candidatures en facilitant la soumission des dossiers, en renforçant la transparence du processus de sélection et en assurant la conservation sécurisée des archives numériques.</p>
+            </div>
+
+            <div class="about-gallery">
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FFB84D, #FF6B6B); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;"><img src="assets/Image_2.jpg" alt=""></div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF9E64, #FF6B6B); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;"><img src="assets/Image_3.jpg" alt=""></div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #E84393, #FF6B6B); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;"><img src="assets/Image_4.jpg" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOSSIERS -->
+    <section class="dossiers" id="dossiers">
+        <div class="section-header">
+            <h2>Dossiers à fournir</h2>
+            <p>Préparez votre candidature avec tous les documents requis</p>
+        </div>
+
+        <div class="dossiers-grid">
+            <div class="dossier-card" onclick="openModal(0)">
+                <div class="dossier-icon">📋</div>
+                <h3>Documents administratifs</h3>
+                <p>Registre de commerce, NIF, STAT et existence juridique</p>
+            </div>
+
+            <div class="dossier-card" onclick="openModal(1)">
+                <div class="dossier-icon">📍</div>
+                <h3>Ancrage territorial</h3>
+                <p>Documents attestant l'implantation dans le district</p>
+            </div>
+
+            <div class="dossier-card" onclick="openModal(2)">
+                <div class="dossier-icon">📈</div>
+                <h3>Projet détaillé</h3>
+                <p>Business Plan et plan de mise en œuvre</p>
+            </div>
+
+            <div class="dossier-card" onclick="openModal(3)">
+                <div class="dossier-icon">💰</div>
+                <h3>Capacité financière</h3>
+                <p>Justificatifs de financement et fonds propres</p>
+            </div>
+
+            <div class="dossier-card" onclick="openModal(4)">
+                <div class="dossier-icon">🔧</div>
+                <h3>Compétences techniques</h3>
+                <p>Expérience et accompagnement technique</p>
+            </div>
+
+            <div class="dossier-card" onclick="openModal(5)">
+                <div class="dossier-icon">🌾</div>
+                <h3>Approvisionnement</h3>
+                <p>Partenariats avec producteurs locaux</p>
+            </div>
+
+            <div class="dossier-card" onclick="openModal(6)">
+                <div class="dossier-icon">🏢</div>
+                <h3>Site d'exploitation</h3>
+                <p>Titre foncier ou contrat de bail</p>
+            </div>
+
+            <div class="dossier-card" onclick="openModal(7)">
+                <div class="dossier-icon">⚡</div>
+                <h3>Énergie et eau</h3>
+                <p>Approvisionnement et solutions alternatives</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALS -->
+    <div id="modal0" class="modal" onclick="closeModalByBackground(event, 0)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(0)">✕</button>
+            <h2>Documents administratifs et juridiques</h2>
+            <p>Les candidats doivent fournir les documents suivants pour prouver leur existence juridique et identité administrative :</p>
+            <ul>
+                <li>Copie du Registre de Commerce et des Sociétés (RCS)</li>
+                <li>Copie du Numéro d'Identification Fiscale (NIF)</li>
+                <li>Copie de la carte statistique (STAT)</li>
+                <li>Document attestant l'existence juridique (entreprise, société, coopérative ou association)</li>
+                <li>Relevé d'identité bancaire ou compte Mobile Money professionnel actif</li>
+            </ul>
+            <p><strong>Objectif :</strong> Vérifier l'existence légale et la formalité de la structure candidate.</p>
+        </div>
+    </div>
+
+    <div id="modal1" class="modal" onclick="closeModalByBackground(event, 1)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(1)">✕</button>
+            <h2>Justificatifs d'ancrage territorial</h2>
+            <p>Les candidats doivent démontrer que leur activité est implantée dans le district concerné :</p>
+            <ul>
+                <li>Documents attestant que le siège social est dans le district</li>
+                <li>Contrats d'approvisionnement local</li>
+                <li>Conventions de partenariat</li>
+                <li>Lettres d'engagement avec acteurs locaux</li>
+                <li>Plan ou photographies du site d'implantation</li>
+            </ul>
+            <p><strong>Importance :</strong> L'ancrage territorial est essentiel pour bénéficier du programme ODOF dans le district.</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal" onclick="closeModalByBackground(event, 2)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(2)">✕</button>
+            <h2>Documents relatifs au projet</h2>
+            <p>Un projet détaillé et réaliste est indispensable pour l'évaluation :</p>
+            <ul>
+                <li>Business Plan complet et réaliste</li>
+                <li>Note de présentation du projet de diversification</li>
+                <li>Plan de mise en œuvre détaillé</li>
+                <li>Calendrier de réalisation et étapes clés</li>
+                <li>Description des impacts socio-économiques attendus</li>
+                <li>Moyens humains et ressources logistiques</li>
+            </ul>
+            <p><strong>Critère d'évaluation :</strong> La viabilité économique et l'impact territorial du projet.</p>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal" onclick="closeModalByBackground(event, 3)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(3)">✕</button>
+            <h2>Justificatifs de capacité financière</h2>
+            <p>Démontrer votre capacité à financer et assurer le fonds de roulement :</p>
+            <ul>
+                <li>Documents prouvant la capacité financière</li>
+                <li>Sources de financement internes et/ou externes</li>
+                <li>Justificatifs des fonds propres mobilisés</li>
+                <li>Capacité à financer investissements énergétiques</li>
+                <li>Plan de trésorerie et budget prévisionnel</li>
+                <li>Lettres de promesse de financement bancaire</li>
+            </ul>
+            <p><strong>Note :</strong> Les partenaires financiers doivent confirmer leur engagement.</p>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal" onclick="closeModalByBackground(event, 4)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(4)">✕</button>
+            <h2>Justificatifs de capacité technique</h2>
+            <p>Votre expérience et compétences en gestion et production :</p>
+            <ul>
+                <li>Documents prouvant l'expérience en production</li>
+                <li>CV des responsables techniques</li>
+                <li>Compétences en transformation et commercialisation</li>
+                <li>Formations et certifications pertinentes</li>
+                <li>Conventions avec structures d'appui technique</li>
+                <li>Contrats avec experts sectoriels</li>
+            </ul>
+            <p><strong>Évaluation :</strong> Capacité à gérer une unité de production industrielle.</p>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal" onclick="closeModalByBackground(event, 5)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(5)">✕</button>
+            <h2>Approvisionnement en matières premières</h2>
+            <p>Relations établies avec les producteurs locaux pour la matière première :</p>
+            <ul>
+                <li>Conventions avec coopératives ou associations</li>
+                <li>Contrats d'approvisionnement long terme</li>
+                <li>Lettres d'engagement de producteurs</li>
+                <li>Plans de qualité et normes de production</li>
+                <li>Volumes estimés et calendriers de livraison</li>
+                <li>Prix négociés et conditions de paiement</li>
+            </ul>
+            <p><strong>Objectif :</strong> Assurer une chaîne d'approvisionnement durable avec les producteurs locaux.</p>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal" onclick="closeModalByBackground(event, 6)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(6)">✕</button>
+            <h2>Site d'exploitation</h2>
+            <p>Preuve de disponibilité ou sécurisation du site d'exploitation :</p>
+            <ul>
+                <li>Titre foncier ou certificat d'occupation</li>
+                <li>Contrat de bail signé et tamponné</li>
+                <li>Attestation de mise à disposition officielle</li>
+                <li>Acte de donation notarié si applicable</li>
+                <li>Lettre d'engagement signée du propriétaire</li>
+                <li>Plan du site et photos actuelles</li>
+            </ul>
+            <p><strong>Durée minimale :</strong> Le site doit être sécurisé pour au moins 5 ans.</p>
+        </div>
+    </div>
+
+    <div id="modal7" class="modal" onclick="closeModalByBackground(event, 7)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal(7)">✕</button>
+            <h2>Énergie et eau</h2>
+            <p>Dispositif d'approvisionnement en énergie et en eau :</p>
+            <ul>
+                <li>Description du dispositif d'approvisionnement actuel</li>
+                <li>Consommation énergétique estimée</li>
+                <li>Plan d'investissement en solutions autonomes</li>
+                <li>Études de faisabilité (solaire, bioénergie, hybride)</li>
+                <li>Approvisionnement en eau potable</li>
+                <li>Traitement et gestion des eaux usées</li>
+                <li>Certifications environnementales si applicable</li>
+            </ul>
+            <p><strong>Critère important :</strong> Solutions énergétiques durables et respectueuses de l'environnement.</p>
+        </div>
+    </div>
+
+    <!-- FORM -->
+    <section class="form-section" id="form">
+        <div class="section-header">
+            <h2>Formulaire d'inscription</h2>
+            <p>Candidature pour devenir Gestionnaire ODOF</p>
+        </div>
+
+        <div class="form-container">
+            <div class="form-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <h3 id="stepTitle">Identification du candidat</h3>
+            </div>
+
+            <form id="multiStepForm">
+                <!-- ÉTAPE 1: Identification -->
+                <div class="form-step active" id="step-1">
+                    <div class="form-group">
+                        <label for="raison_sociale">Raison sociale *</label>
+                        <input type="text" id="raison_sociale" name="raison_sociale" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="forme_juridique">Forme juridique *</label>
+                        <select id="forme_juridique" name="forme_juridique" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Entreprise individuelle">Entreprise individuelle</option>
+                            <option value="Société">Société</option>
+                            <option value="Coopérative">Coopérative</option>
+                            <option value="Association">Association à objet économique</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date_creation">Date de création *</label>
+                        <input type="date" id="date_creation" name="date_creation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numero_rcs">Numéro RCS *</label>
+                        <input type="text" id="numero_rcs" name="numero_rcs" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numero_nif">Numéro NIF *</label>
+                        <input type="text" id="numero_nif" name="numero_nif" required>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 2: Informations de contact -->
+                <div class="form-step" id="step-2">
+                    <div class="form-group">
+                        <label for="numero_stat">Numéro STAT</label>
+                        <input type="text" id="numero_stat" name="numero_stat">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adresse_siege">Adresse du siège social *</label>
+                        <textarea id="adresse_siege" name="adresse_siege" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="district">District *</label>
+                        <select id="district" name="district" required>
+                            <option value="">Sélectionner un district...</option>
+                            <option value="Antananarivo">Antananarivo</option>
+                            <option value="Antsirabe">Antsirabe</option>
+                            <option value="Toliara">Toliara</option>
+                            <option value="Mahajanga">Mahajanga</option>
+                            <option value="Toliara">Toliara</option>
+                            <option value="Autres">Autres districts</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telephone">Téléphone *</label>
+                        <input type="tel" id="telephone" name="telephone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Adresse e-mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 3: Représentant légal -->
+                <div class="form-step" id="step-3">
+                    <div class="form-group">
+                        <label for="nom_representant">Nom et prénom du représentant légal *</label>
+                        <input type="text" id="nom_representant" name="nom_representant" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fonction_representant">Fonction du représentant légal *</label>
+                        <input type="text" id="fonction_representant" name="fonction_representant" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lieu_implantation">Lieu d'implantation actuel de l'activité *</label>
+                        <textarea id="lieu_implantation" name="lieu_implantation" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dans_district">Est-ce situé dans le district ? *</label>
+                        <select id="dans_district" name="dans_district" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Oui">Oui</option>
+                            <option value="Non">Non</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 4: Projet -->
+                <div class="form-step" id="step-4">
+                    <div class="form-group">
+                        <label for="intitule_projet">Intitulé du projet *</label>
+                        <input type="text" id="intitule_projet" name="intitule_projet" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="secteur_actuel">Secteur d'activité actuel *</label>
+                        <input type="text" id="secteur_actuel" name="secteur_actuel" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activite_transformation">Activité de transformation envisagée *</label>
+                        <textarea id="activite_transformation" name="activite_transformation" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="produits">Produits agricoles concernés *</label>
+                        <textarea id="produits" name="produits" required></textarea>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 5: Capacité financière -->
+                <div class="form-step" id="step-5">
+                    <div class="form-group">
+                        <label for="cout_projet">Coût total du projet (MGA) *</label>
+                        <input type="number" id="cout_projet" name="cout_projet" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fonds_propres">Fonds propres mobilisés (MGA) *</label>
+                        <input type="number" id="fonds_propres" name="fonds_propres" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sources de financement *</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="sources_financement" value="Banque">
+                                <label>Banque</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="sources_financement" value="Microfinance">
+                                <label>Microfinance</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="sources_financement" value="Investisseur">
+                                <label>Investisseur</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="sources_financement" value="Partenaire">
+                                <label>Partenaire technique et financier</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 6: Capacité technique -->
+                <div class="form-step" id="step-6">
+                    <div class="form-group">
+                        <label for="experience_transformation">Avez-vous une expérience en transformation ? *</label>
+                        <select id="experience_transformation" name="experience_transformation" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Oui">Oui</option>
+                            <option value="Non">Non</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description_experience">Décrivez votre expérience *</label>
+                        <textarea id="description_experience" name="description_experience" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personnel_technique">Personnel technique disponible *</label>
+                        <textarea id="personnel_technique" name="personnel_technique" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="source_energie">Source d'énergie principale *</label>
+                        <select id="source_energie" name="source_energie" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="JIRAMA">JIRAMA</option>
+                            <option value="Groupe électrogène">Groupe électrogène</option>
+                            <option value="Solaire">Solaire</option>
+                            <option value="Hybride">Hybride</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 7: Impacts et finalisation -->
+                <div class="form-step" id="step-7">
+                    <div class="form-group">
+                        <label for="emplois_permanents">Emplois permanents prévus *</label>
+                        <input type="number" id="emplois_permanents" name="emplois_permanents" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emplois_temporaires">Emplois temporaires prévus *</label>
+                        <input type="number" id="emplois_temporaires" name="emplois_temporaires" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="impacts_economie">Impacts attendus sur l'économie locale *</label>
+                        <textarea id="impacts_economie" name="impacts_economie" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accepte_conditions">
+                            <input type="checkbox" name="accepte_conditions" required>
+                            Je certifie que les renseignements fournis sont exacts et je m'engage à fournir tous documents complémentaires requis.
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Boutons de navigation -->
+                <div class="form-buttons">
+                    <button type="button" class="btn-prev" id="btnPrev" style="display:none;" onclick="previousStep()">← Précédent</button>
+                    <button type="button" class="btn-next" id="btnNext" onclick="nextStep()">Suivant →</button>
+                    <button type="submit" class="btn-submit" id="btnSubmit" style="display:none;">Soumettre</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>À propos d'ODOF</h4>
+                <p>Le programme One District One Factory est une initiative du Gouvernement de Madagascar pour promouvoir l'industrialisation locale et le développement économique territorial.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#dossiers">Dossiers</a></li>
+                    <li><a href="#form">Inscription</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Nous contacter</h4>
+                <p>Email: <a href="mailto:contact@sns-odof.mg">contact@sns-odof.mg</a></p>
+                <p>Tél: +261 XX XX XX XX</p>
+                <p>Adresse: Antananarivo, Madagascar</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Réseaux sociaux</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 SNS-ODOF Madagascar. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Variables globales
+        let currentStep = 1;
+        const totalSteps = 7;
+
+        // Navigation de la navbar
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Modals
+        function openModal(modalIndex) {
+            const modal = document.getElementById(`modal${modalIndex}`);
+            modal.classList.add('active');
+        }
+
+        function closeModal(modalIndex) {
+            const modal = document.getElementById(`modal${modalIndex}`);
+            modal.classList.remove('active');
+        }
+
+        function closeModalByBackground(event, modalIndex) {
+            if (event.target.id === `modal${modalIndex}`) {
+                closeModal(modalIndex);
+            }
+        }
+
+        // Fermer les modals avec ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            }
+        });
+
+        // Formulaire multi-étapes
+        function showStep(step) {
+            document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            updateProgressBar();
+            updateButtons();
+            updateStepTitle();
+        }
+
+        function updateProgressBar() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            if (currentStep === 1) {
+                btnPrev.style.display = 'none';
+            } else {
+                btnPrev.style.display = 'block';
+            }
+
+            if (currentStep === totalSteps) {
+                btnNext.style.display = 'none';
+                btnSubmit.style.display = 'block';
+            } else {
+                btnNext.style.display = 'block';
+                btnSubmit.style.display = 'none';
+            }
+        }
+
+        function updateStepTitle() {
+            const titles = [
+                'Identification du candidat',
+                'Informations de contact',
+                'Représentant légal',
+                'Présentation du projet',
+                'Capacité financière',
+                'Capacité technique',
+                'Impacts et finalisation'
+            ];
+            document.getElementById('stepTitle').textContent = titles[currentStep - 1];
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function validateStep(step) {
+            const form = document.getElementById('multiStepForm');
+            const inputs = document.getElementById(`step-${step}`).querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.style.borderColor = '#FF6B6B';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            return isValid;
+        }
+
+        // Soumission du formulaire
+        document.getElementById('multiStepForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateStep(currentStep)) {
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                // EmailJS Integration (vous devez configurer EmailJS)
+                // Pour démo, on affiche juste un message
+                alert('Formulaire soumis avec succès ! Vos données ont été envoyées.');
+                console.log('Données du formulaire:', data);
+                
+                // Réinitialiser le formulaire
+                this.reset();
+                currentStep = 1;
+                showStep(currentStep);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        // Initialisation
+        showStep(1);
+    </script>
+</body>
+</html>
