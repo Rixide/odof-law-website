@@ -68,13 +68,10 @@
 
         <div class="about-content">
             <div class="about-text">
-                <h3>Objectif du projet</h3>
-                <p>Mis en œuvre dans le cadre des politiques nationales de développement économique et industriel, l’ODOF a pour objet de valoriser les ressources locales, de stimuler l’entrepreneuriat, de créer des emplois durables et de renforcer la transformation des produits nationaux. Il a pour but de contribuer à un développement économique inclusif et équilibré sur l’ensemble du territoire malgache.</p>
-                <br>
-                <h3>Notre mission</h3>
                 <p>Le Système National de Sélection ODOF (SNS-ODOF) est une plateforme numérique conçue pour accompagner le processus de recrutement et de sélection des Gestionnaires ODOF dans le cadre du programme One District One Factory (ODOF) à Madagascar.</p>
                 <p>Cette plateforme met à la disposition des candidats toutes les informations relatives aux appels à candidature, aux critères d'éligibilité ainsi qu'aux pièces constitutives du dossier de candidature. Elle permet également l’inscription et le dépôt des dossiers en ligne, offrant ainsi une procédure plus simple, rapide et accessible.</p>
                 <p>Le SNS-ODOF a pour mission de moderniser la gestion des candidatures en facilitant la soumission des dossiers, en renforçant la transparence du processus de sélection et en assurant la conservation sécurisée des archives numériques. À travers cette démarche, la plateforme contribue à une gestion plus efficace, fiable et centralisée des candidatures liées au programme ODOF.</p>
+                <p>Notre objectif est de rendre le processus de candidature plus accessible, plus transparent et plus performant, tout en garantissant une gestion rigoureuse des informations et des documents soumis par les candidats.</p>
             </div>
 
             <div class="about-gallery">
@@ -307,7 +304,7 @@
                         <input type="text" id="raison_sociale" name="raison_sociale" required>
                     </div>
 
-                    <div class="form-group">
+                   <div class="form-group">
                         <label for="forme_juridique">Forme juridique *</label>
                         <select id="forme_juridique" name="forme_juridique" required>
                             <option value="">Sélectionner...</option>
@@ -317,6 +314,12 @@
                             <option value="Association">Association à objet économique</option>
                             <option value="Autre">Autre</option>
                         </select>
+                    </div>
+
+                    <!-- Champ qui apparaît quand on sélectionne "Autre" -->
+                    <div class="form-group" id="forme_autre_input" style="display: none;">
+                        <label for="forme_autre_details">Précisez la forme juridique *</label>
+                        <input type="text" id="forme_autre_details" name="forme_autre_details" placeholder="Entrez la forme juridique">
                     </div>
 
                     <div class="form-group">
@@ -401,14 +404,19 @@
                         <textarea id="lieu_implantation" name="lieu_implantation" required></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label for="dans_district">Est-ce situé dans le district ? *</label>
-                        <select id="dans_district" name="dans_district" required>
-                            <option value="">Sélectionner...</option>
-                            <option value="Oui">Oui</option>
-                            <option value="Non">Non</option>
-                        </select>
-                    </div>
+                  <div class="form-group">
+                    <label for="dans_district">Est-ce situé dans le district ? *</label>
+                    <select id="dans_district" name="dans_district" required>
+                        <option value="">Sélectionner...</option>
+                        <option value="Oui">Oui</option>
+                        <option value="Non">Non</option>
+                    </select>
+                </div>
+
+                 <div class="form-group">
+                        <label for="fonction_justification">Si non, justification de l’ancrage territorial ou du projet d’implantation </label>
+                        <input type="text" id="fonction_justification" name="fonction_justification">
+                </div>
                 </div>
 
                 <!-- ÉTAPE 4: Projet -->
@@ -432,10 +440,90 @@
                         <label for="produits">Produits agricoles concernés *</label>
                         <textarea id="produits" name="produits" required></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="objectif_projet">Objectif du projet *</label>
+                        <textarea id="objectif_projet" name="objectif_projet" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc_succincte">Description succincte du projet *</label>
+                        <textarea id="desc_succincte" name="desc_succincte" required></textarea>
+                    </div>
                 </div>
 
-                <!-- ÉTAPE 5: Capacité financière -->
+                 <!-- ÉTAPE 5: Approvisionnement en matière premières -->
                 <div class="form-step" id="step-5">
+                    <div class="form-group">
+                        <label for="partenaire_producteur">Partenaires producteurs (coopératives, associations, etc)</label>
+                        <textarea id="partenaire_producteur" name="partenaire_producteur" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nature des partenariats *</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="nature_partenariat" value="Convention">
+                                <label>Convention</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="nature_partenariat" value="Contrat">
+                                <label>Contrat</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="nature_partenariat" value="Lettre d'engagement">
+                                <label>Lettre d'engagement</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="nature_partenariat" value="Autre">
+                                <label>Autre</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- ÉTAPE 6: Site d'exploitation -->
+                <div class="form-step" id="step-6">
+                    <div class="form-group">
+                        <label for="localisation_site">Localisation du site *</label>
+                        <textarea id="localisation_site" name="localisation_site" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Statut du site *</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="statut_site" value="Propriété">
+                                <label>Propriété</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="statut_site" value="Bail">
+                                <label>Bail</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="statut_site" value="Mise à disposition">
+                                <label>Mise à disposition</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="statut_site" value="Donation">
+                                <label>Donation</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="statut_site" value="Occupation autorisée">
+                                <label>Occupation autorisée</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="statut_site" value="Autre">
+                                <label>Autre</label>
+                            </div>
+                        </div>
+                        <br>
+                         <div class="form-group">
+                            <label for="superficie">Superficie du site *</label>
+                            <input type="number" id="superficie" name="superficie" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 7: Capacité financière -->
+                <div class="form-step" id="step-7">
                     <div class="form-group">
                         <label for="cout_projet">Coût total du projet (MGA) *</label>
                         <input type="number" id="cout_projet" name="cout_projet" required>
@@ -469,8 +557,8 @@
                     </div>
                 </div>
 
-                <!-- ÉTAPE 6: Capacité technique -->
-                <div class="form-step" id="step-6">
+                <!-- ÉTAPE 8: Capacité technique -->
+                <div class="form-step" id="step-8">
                     <div class="form-group">
                         <label for="experience_transformation">Avez-vous une expérience en transformation ? *</label>
                         <select id="experience_transformation" name="experience_transformation" required>
@@ -489,6 +577,10 @@
                         <label for="personnel_technique">Personnel technique disponible *</label>
                         <textarea id="personnel_technique" name="personnel_technique" required></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="accompagnement_technique">Accompagnement technique prévu *</label>
+                        <textarea id="accompagnement_technique" name="accompagnement_technique" required></textarea>
+                    </div>
 
                     <div class="form-group">
                         <label for="source_energie">Source d'énergie principale *</label>
@@ -501,10 +593,21 @@
                             <option value="Autre">Autre</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="source_eau">Source d'eau *</label>
+                        <select id="source_eau" name="source_eau" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="JIRAMA">JIRAMA</option>
+                            <option value="Forage">Forage</option>
+                            <option value="Puits">Puits</option>
+                            <option value="Réserve d'eau">Réserve d'eau</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
                 </div>
 
-                <!-- ÉTAPE 7: Impacts et finalisation -->
-                <div class="form-step" id="step-7">
+                <!-- ÉTAPE 9: Impacts et finalisation -->
+                <div class="form-step" id="step-9">
                     <div class="form-group">
                         <label for="emplois_permanents">Emplois permanents prévus *</label>
                         <input type="number" id="emplois_permanents" name="emplois_permanents" required>
@@ -518,6 +621,10 @@
                     <div class="form-group">
                         <label for="impacts_economie">Impacts attendus sur l'économie locale *</label>
                         <textarea id="impacts_economie" name="impacts_economie" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="impacts_producteur">Impacts attendus sur les producteurs locaux *</label>
+                        <textarea id="impacts_producteur" name="impacts_producteur" required></textarea>
                     </div>
 
                     <div class="form-group">
@@ -558,7 +665,7 @@
 
             <div class="footer-section">
                 <h4>Nous contacter</h4>
-                <p>Email: <a href="mailto:contact@sns-odof.mg">contact@sns-odof.mg</a></p>
+                <p>Email: <a href="mailto:mindsp@sns-odof.mg">mindsp@sns-odof.mg</a></p>
                 <p>Tél: +261 20 21 22 23</p>
                 <p>Adresse: Antananarivo, Madagascar</p>
             </div>

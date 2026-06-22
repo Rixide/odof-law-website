@@ -1,6 +1,6 @@
  // Variables globales
         let currentStep = 1;
-        const totalSteps = 7;
+        const totalSteps = 9;
 
         // Navigation de la navbar
         window.addEventListener('scroll', function() {
@@ -78,6 +78,8 @@
                 'Identification du candidat',
                 'Informations de contact',
                 'Représentant légal',
+                'Approvisionnement en matière premières',
+                'Site d\'exploitation',
                 'Présentation du projet',
                 'Capacité financière',
                 'Capacité technique',
@@ -144,3 +146,17 @@
 
         // Initialisation
         showStep(1);
+
+        document.getElementById('forme_juridique').addEventListener('change', function() {
+            const autreDiv = document.getElementById('forme_autre_input');
+            const autreInput = document.getElementById('forme_autre_details');
+            
+            if (this.value === 'Autre') {
+                autreDiv.style.display = 'block';
+                autreInput.required = true;
+            } else {
+                autreDiv.style.display = 'none';
+                autreInput.required = false;
+                autreInput.value = ''; // Vider le champ
+            }
+        });
